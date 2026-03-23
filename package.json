@@ -1,0 +1,37 @@
+{
+  "name": "boxing-match-betting-app-be-",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohnraj/Boxing-Match-Betting-App-BE-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/rohnraj/Boxing-Match-Betting-App-BE-/issues"
+  },
+  "homepage": "https://github.com/rohnraj/Boxing-Match-Betting-App-BE-#readme",
+  "dependencies": {
+    "amqplib": "^0.10.9",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cookies": "^0.9.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "nodemailer": "^8.0.2",
+    "nodemon": "^3.1.14",
+    "pg": "^8.20.0",
+    "redis": "^5.11.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1"
+  }
+}
