@@ -9,10 +9,9 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 app.use(express.json());
-app.use(cookieParser());
-
-app.use('/api/auth', authRoutes);
-app.get('/', (req, res) => {
+ 
+app.use('/', authRoutes);
+app.use('/', (req, res) => {
   res.send('Hello, World!');
 });
 

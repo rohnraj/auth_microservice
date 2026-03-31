@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import { createNewUser, getExistingUser } from '../model/userModel.js';
-import jwt from 'jsonwebtoken';
 
 const signupController = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
+        const id = uuidv4();
 
         const userExist = await getExistingUser(email);
 
@@ -15,11 +15,15 @@ const signupController = async (req, res, next) => {
         const hashedPassword = bcrypt.hashSync(password, 10);
         // req.user = { username, email, password: hashedPassword };
 
-        const createUser = await createNewUser(username, email, hashedPassword);
+        const createUser = await createNewUser(id, username, email, hashedPassword);
 
         if (!createUser) {
             return res.status(500).json({ message: 'Error creating user' });
         }
+
+        req.user = { id, username, email, password: hashedPassword };
+
+        const { accessToken, refreshToken } = getTokens(req.user);
 
         next();
     } catch (error) {
@@ -30,6 +34,7 @@ const signupController = async (req, res, next) => {
 
 const loginController = async (req, res, next) => {
     try {
+        console.log("logincontroller")
         const { email, password } = req.body;
 
         // Validate input
@@ -50,8 +55,8 @@ const loginController = async (req, res, next) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Attach user info to request object for next middleware
-        req.user = { username: user.username, email: user.email};
+        req.user = { username: user.username, email: user.email };
+
         next();
     } catch (error) {
         console.error('Error in loginController:', error);

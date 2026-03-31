@@ -1,5 +1,5 @@
 import Pool from "../config/db.js";
-import { v4 as uuidv4 } from "uuid";
+
 
 
 const getExistingUser = async (email) => {
@@ -14,9 +14,8 @@ const getExistingUser = async (email) => {
     }
 };
 
-const createNewUser = async (username, email, hashedPassword) => {
+const createNewUser = async (id, username, email, hashedPassword) => {
     try {
-        const id = uuidv4();
         const query = 'INSERT INTO users (id, username, email, password) VALUES ($1, $2, $3, $4) RETURNING *';
         const values = [id, username, email, hashedPassword];
         const result = await Pool.query(query, values);
