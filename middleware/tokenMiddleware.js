@@ -2,9 +2,8 @@ import jwt from 'jsonwebtoken';
 
 
 const getAccessToken = (req, res, next) => {
-    const { id, username, email, password } = req.user;
-    const token = jwt.sign({ id, username, email, password }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    console.log('access token generated:', token);
+    const { id, username, email } = req.user;
+    const token = jwt.sign({ id, username, email }, process.env.JWT_SECRET, { expiresIn: '1h' });
     
     res.cookie("access_token", token, {
         httpOnly: true,
@@ -16,8 +15,8 @@ const getAccessToken = (req, res, next) => {
 };
 
 const refreshToken = (req, res, next) => {
-    const { id, username, email, password } = req.user;
-    const token = jwt.sign({ id, username, email, password }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const { id, username, email } = req.user;
+    const token = jwt.sign({ id, username, email }, process.env.JWT_SECRET, { expiresIn: '7d' });
     
     res.cookie("refresh_token", token, {
         httpOnly: true,

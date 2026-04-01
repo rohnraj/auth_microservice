@@ -21,9 +21,7 @@ const signupController = async (req, res, next) => {
             return res.status(500).json({ message: 'Error creating user' });
         }
 
-        req.user = { id, username, email, password: hashedPassword };
-
-        const { accessToken, refreshToken } = getTokens(req.user);
+        req.user = { id, username, email };
 
         next();
     } catch (error) {
@@ -34,7 +32,6 @@ const signupController = async (req, res, next) => {
 
 const loginController = async (req, res, next) => {
     try {
-        console.log("logincontroller")
         const { email, password } = req.body;
 
         // Validate input
@@ -55,7 +52,7 @@ const loginController = async (req, res, next) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        req.user = { username: user.username, email: user.email };
+        req.user = { id: user.id, username: user.username, email: user.email };
 
         next();
     } catch (error) {
