@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createNewUser, getExistingUser } from '../model/userModel.js';
+import { createNewUser, getExistingUser, getUserbyId } from '../model/userModel.js';
 
 const signupController = async (req, res, next) => {
     try {
@@ -59,6 +59,19 @@ const loginController = async (req, res, next) => {
         console.error('Error in loginController:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
+};
+
+export const getUser = async (call, callback) => {
+
+  const userId = call.request.userId;
+  const userdata = await getUserbyId(userId);
+  const user = {
+    user_id: userId,
+    name: userdata.username,
+    email: userdata.email
+  };
+
+  callback(null, user);
 };
 
 export { signupController, loginController };

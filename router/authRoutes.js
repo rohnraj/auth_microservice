@@ -1,9 +1,9 @@
 import express from 'express';
 import {signupController, loginController} from '../controllers/authController.js';
 import authMiddleware from '../middleware/tokenMiddleware.js';
+import { getAllUsers } from '../model/userModel.js';
 
 const router = express.Router();
-console.log('authMiddleware:');
 
 router.post('/signup', signupController, 
     authMiddleware?.getAccessToken,
@@ -33,4 +33,10 @@ router.get("/logout", (req, res) => {
     res.status(200).json({ message: 'User logged out successfully' });
 });
 
+router.get("/getAllusers", async (req, res) => {
+    const allUsers = await getAllUsers();
+    res.status(200).json(allUsers);
+});
+
+// router.get("/getUserbyId/:id", authMiddleware?.refreshAccessToken ,getUser);
 export default router;  

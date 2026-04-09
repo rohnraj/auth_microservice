@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/rohnraj/Boxing-Match-Betting-App-BE-#readme",
   "dependencies": {
+    "@grpc/grpc-js": "^1.14.3",
+    "@grpc/proto-loader": "^0.8.0",
     "amqplib": "^0.10.9",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",

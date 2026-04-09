@@ -26,4 +26,27 @@ const createNewUser = async (id, username, email, hashedPassword) => {
     }
 };
 
-export { getExistingUser, createNewUser };
+const getAllUsers = async () => {
+    try {
+        const query = 'SELECT id, username, email FROM users';
+        const result = await Pool.query(query);
+        return result.rows;
+    } catch (error) {
+        console.error('Error fetching all users:', error);
+        throw error;
+    }
+};
+
+const getUserbyId = async (id) => {
+    try {
+        const query = 'SELECT * FROM users WHERE id = $1';
+        const values = [id];
+        const result = await Pool.query(query, values);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error fetching user by ID:', error);
+        throw error;
+    }
+};
+
+export { getExistingUser, createNewUser, getAllUsers, getUserbyId };
